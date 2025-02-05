@@ -20,11 +20,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          venv/bin/pip install -r requirements.txt
-
-      - name: Build complete
-        run: echo "Build step complete"
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
   test:
     runs-on: ubuntu-latest
@@ -41,26 +38,25 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          venv/bin/pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Run tests
         run: |
-          venv/bin/python -m pytest tests
-          echo "Tests completed"
+          pytest tests
 
       - name: Run mypy
         run: |
-          venv/bin/python -m mypy app/
+          mypy app/
 
       - name: Run black
         run: |
-          venv/bin/python -m black --check --diff app/
+          black --check --diff app/
 
       - name: Run isort
         run: |
-          venv/bin/python -m isort --check-only --diff app/
+          isort --check-only --diff app/
 
       - name: Run flake8
         run: |
-          venv/bin/python -m flake8 app/
+          flake8 app/
