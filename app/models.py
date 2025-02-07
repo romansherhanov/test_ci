@@ -1,4 +1,3 @@
-from app import db
 from sqlalchemy import (
     Boolean,
     Column,
@@ -10,8 +9,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import backref, relationship
 
+from app import db
 
-class Client(db.Model): # type: ignore
+
+class Client(db.Model):  # type: ignore
     __tablename__ = "client"
 
     id = Column(Integer, primary_key=True)
@@ -24,7 +25,7 @@ class Client(db.Model): # type: ignore
         return f"Клиент {self.name}"
 
 
-class Parking(db.Model): # type: ignore
+class Parking(db.Model):  # type: ignore
     __tablename__ = "parking"
 
     id = Column(Integer, primary_key=True)
@@ -37,7 +38,7 @@ class Parking(db.Model): # type: ignore
         return f"Паркинг {self.address}"
 
 
-class ClientParking(db.Model): # type: ignore
+class ClientParking(db.Model):  # type: ignore
     __tablename__ = "client_parking "
     __table_args = UniqueConstraint("client_id", "parking_id")
 
@@ -47,10 +48,8 @@ class ClientParking(db.Model): # type: ignore
     time_out = Column(DateTime)
 
     client = relationship(
-        "Client",
-        backref=backref("client_parking", lazy=True)
+        "Client", backref=backref("client_parking", lazy=True)
     )
     parking = relationship(
-        "Parking",
-        backref=backref("client_parking", lazy=True)
+        "Parking", backref=backref("client_parking", lazy=True)
     )
