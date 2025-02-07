@@ -1,20 +1,12 @@
 from datetime import datetime
 
-from flask import request, Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from marshmallow import ValidationError
 from sqlalchemy import select
 
 from app import create_app, db
-from app.models import (
-    Client,
-    Parking,
-    ClientParking
-)
-from app.schemas import (
-    ClientSchema,
-    ParkingSchema,
-    ClientParkingSchema,
-)
+from app.models import Client, ClientParking, Parking
+from app.schemas import ClientParkingSchema, ClientSchema, ParkingSchema
 
 routes = Blueprint("clients", __name__)
 
@@ -29,6 +21,7 @@ def get_client(client_id: int):
     if client is None:
         return {"message": "Client not found"}, 404
     return ClientSchema().dump(client), 200
+
 
 @routes.route("/clients", methods=["GET"])
 def get_clients():
