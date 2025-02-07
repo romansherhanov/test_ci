@@ -11,7 +11,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import backref, relationship
 
 
-class Client(db.Model):
+class Client(db.Model): # type: ignore
     __tablename__ = "client"
 
     id = Column(Integer, primary_key=True)
@@ -24,7 +24,7 @@ class Client(db.Model):
         return f"Клиент {self.name}"
 
 
-class Parking(db.Model):
+class Parking(db.Model): # type: ignore
     __tablename__ = "parking"
 
     id = Column(Integer, primary_key=True)
@@ -37,7 +37,7 @@ class Parking(db.Model):
         return f"Паркинг {self.address}"
 
 
-class ClientParking(db.Model):
+class ClientParking(db.Model): # type: ignore
     __tablename__ = "client_parking "
     __table_args = UniqueConstraint("client_id", "parking_id")
 
